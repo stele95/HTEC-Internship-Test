@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //final TextView textView= (TextView)  findViewById(R.id.textView);
 
         String url = "https://raw.githubusercontent.com/danieloskarsson/mobile-coding-exercise/master/items.json";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
                     } catch (Exception e) {
                         Toast.makeText(MainActivity.this,e.toString(),Toast.LENGTH_LONG).show();
-                        //textView.setText(e.toString());
                     }
                 }
 
@@ -64,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Toast.makeText(MainActivity.this,"Total items: "+items.size(),Toast.LENGTH_LONG).show();
-                //textView.setText("Total items: "+items.size());
+
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-                //textView.setText(error.toString());
+
             }
         });
 

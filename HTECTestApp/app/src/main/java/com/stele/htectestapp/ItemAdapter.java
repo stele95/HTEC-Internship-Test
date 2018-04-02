@@ -2,8 +2,6 @@ package com.stele.htectestapp;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -18,8 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.io.IOException;
-import java.net.URL;
+
 import java.util.ArrayList;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
@@ -50,31 +47,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             @Override
             public void onClick(View view) {
 
-                //Toast.makeText(context, itemViewHolder.item_title.getText(), Toast.LENGTH_SHORT).show();
-
 
                 TextView title = (TextView) itemDialog.findViewById(R.id.item_title_dialog);
                 TextView description = (TextView) itemDialog.findViewById(R.id.item_description_dialog);
                 ImageView imageView = itemDialog.findViewById(R.id.item_image_dialog);
 
-                /*try {
-                    URL url = new URL(items.get(itemViewHolder.getAdapterPosition()).getImage());
-                    Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                    imageView.setImageBitmap(bmp);
-                }
-                catch (IOException ex)
-                {
-                    Toast.makeText(context, "IOException: "+ex.toString(), Toast.LENGTH_SHORT).show();
-                }
-                catch (Exception ex)
-                {
-                    Toast.makeText(context, ex.toString(), Toast.LENGTH_SHORT).show();
-                }*/
 
                 Glide.with(context).load(items.get(itemViewHolder.getAdapterPosition()).getImage()).into(imageView);
 
                 title.setText(items.get(itemViewHolder.getAdapterPosition()).getTitle());
                 description.setText(items.get(itemViewHolder.getAdapterPosition()).getDescription());
+
+                Toast.makeText(context, "Loading image, please wait...",Toast.LENGTH_LONG).show();
 
                 itemDialog.show();
 
