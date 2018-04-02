@@ -1,5 +1,6 @@
 package com.stele.htectestapp;
 
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -16,9 +17,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
 public class MainActivity extends AppCompatActivity {
 
-    public ArrayList<Item> items;
+
+    Class fragmentClass;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                items = new ArrayList<>();
+                ArrayList<Item> items=new ArrayList<>();
+
                 for (int i = 0; i < response.length(); i++) {
                     try {
 
@@ -43,6 +48,19 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,e.toString(),Toast.LENGTH_LONG).show();
                         //textView.setText(e.toString());
                     }
+                }
+
+                ((MyApplication) getApplication()).setItems(items);
+
+                fragmentClass = MainFragment.class;
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                    getFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
+
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
 
                 Toast.makeText(MainActivity.this,"Total items: "+items.size(),Toast.LENGTH_LONG).show();
